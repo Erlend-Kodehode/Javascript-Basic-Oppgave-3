@@ -40,60 +40,79 @@ skip Otto!
 const cities = ["New York", "London", "Paris", "Berlin", "Copenhagen", "Rome"];
 
 const people = [
-	{
-		name: "Thomas",
-		male: true,
-		age: 23,
-		hobbies: ["cycling", "football", "pool"]
-	},
-	{
-		name: "Susan",
-		male: false,
-		age: 26,
-		hobbies: ["jogging", "travelling", "dancing"]
-	},
-	{
-		name: "Monica",
-		male: false,
-		age: 21,
-		hobbies: ["skateboarding", "guitar", "concerts"]
-	},
-	{
-		name: "Avery",
-		male: true,
-		age: 28,
-		hobbies: ["writing", "games", "memes"]
-	},
-	{
-		name: "Phillip",
-		male: true,
-		age: 24,
-		hobbies: ["boxing", "wrestling", "mma"]
-	},
-	{
-		name: "Otto",
-		male: true,
-		age: 36,
-		hobbies: ["movies", "cinema", "music"]
-	},
-	{
-		name: "Annabelle",
-		male: false,
-		age: 30,
-		hobbies: ["makeup", "fashion", "shopping"]
-	},
-	{
-		name: "Cathy",
-		male: false,
-		age: 18,
-		hobbies: ["design", "drawing", "css"]
-	}
+  {
+    name: "Thomas",
+    male: true,
+    age: 23,
+    hobbies: ["cycling", "football", "pool"],
+  },
+  {
+    name: "Susan",
+    male: false,
+    age: 26,
+    hobbies: ["jogging", "travelling", "dancing"],
+  },
+  {
+    name: "Monica",
+    male: false,
+    age: 21,
+    hobbies: ["skateboarding", "guitar", "concerts"],
+  },
+  {
+    name: "Avery",
+    male: true,
+    age: 28,
+    hobbies: ["writing", "games", "memes"],
+  },
+  {
+    name: "Phillip",
+    male: true,
+    age: 24,
+    hobbies: ["boxing", "wrestling", "mma"],
+  },
+  {
+    name: "Otto",
+    male: true,
+    age: 36,
+    hobbies: ["movies", "cinema", "music"],
+  },
+  {
+    name: "Annabelle",
+    male: false,
+    age: 30,
+    hobbies: ["makeup", "fashion", "shopping"],
+  },
+  {
+    name: "Cathy",
+    male: false,
+    age: 18,
+    hobbies: ["design", "drawing", "css"],
+  },
 ];
 let combinedAge = 0;
 
 //your code here
 
-let averageAge = 0;
+// For of loop to go through the object array
+for (const person of people) {
+  // Skips the person if their name is Otto
+  if (person.name === "Otto") continue;
+  // Adds a random city from the city array
+  person.city = cities[Math.floor(Math.random() * cities.length)];
+  // Gives the person an appropriate title based on their gender
+  person.title = person.male ? "Mr." : "Ms.";
+  // Increaments their age by 2
+  person.age += 2;
+  // Adds coding to the beggining of each persons hobby array
+  person.hobbies.unshift("coding");
+  // Adds the current persons age to the combinedAge variable
+  combinedAge += person.age;
+}
+console.log(people);
+
+//Divides the combined age with the number of people to get the avrage age
+let averageAge = combinedAge / people.length;
+console.log(averageAge);
 
 /******************************************************************************
 2.
@@ -117,6 +136,16 @@ should have.
 diceRoller(5, 20) should return an array of 5 random numbers ranging from 1-20 
 ******************************************************************************/
 
+function diceRoller(diceNum, diceFaces) {
+  //declares an array to return
+  diceArray = [];
+  //loops "diceNum" times
+  for (let i = 0; i < diceNum; i++) {
+    //adds a random number between 1 and "diceFaces" to diceArray
+    diceArray.push(Math.ceil(Math.random() * diceFaces));
+  }
+  return diceArray;
+}
 
 /******************************************************************************
 3.
@@ -141,7 +170,21 @@ Example:
 should return:
 "this text needs to be cleaned up"
 ******************************************************************************/
+testArray = [" thIS", "teXt  ", " nEeds ", "to", "BE", "cleANED   ", " Up"];
 
+const cleaner = (array) => {
+  //declares array to return
+  newArray = [];
+  //goes through each string in the provided array
+  for (const string of array) {
+    //adds a trimmed and lovercased version of the string to newArray
+    newArray.push(string.trim().toLowerCase());
+  }
+  //returns a string consisting of the elememnts of newArray joined with a space between each element
+  return newArray.join(" ");
+};
+
+console.log(cleaner(testArray));
 
 /******************************************************************************
 4.
@@ -174,7 +217,60 @@ should be detected.
 
 I have provided some string variables to test your function with.
 ******************************************************************************/
+const greetings = [
+  "Hello, how are you today?",
+  "Diciamo ciao prima di andare!",
+  "Salut, ça va bien?",
+  "Kannst du mich hören? Hallo!",
+  "Hva er regex?",
+  "Nos saludamos con un alegre hola.",
+  "Ona pomachała i powiedziała cześć z uśmiechem.",
+  "Good afternoon gentlemen!",
+];
 
+//An object array that includes all the names of the relavent languages and their respective greetings
+const languages = [
+  {
+    name: "english",
+    greeting: "hello",
+  },
+  {
+    name: "italian",
+    greeting: "ciao",
+  },
+  {
+    name: "french",
+    greeting: "salut",
+  },
+  {
+    name: "german",
+    greeting: "hallo",
+  },
+  {
+    name: "spanish",
+    greeting: "hola",
+  },
+  {
+    name: "polish",
+    greeting: "cześć",
+  },
+];
+
+function helloChecker(string) {
+  //goes through each object of the languages object array
+  for (const language of languages) {
+    //puts the provided string to lovercase and check if it includes the greeting of the current language
+    if (string.toLowerCase().includes(language.greeting))
+      //returns that hello was detected and the language it was detected in
+      return `HELLO detected in ${language.name}.`;
+  }
+  //will only run if no language matches since if they did the previous return statemant would've ended the loop
+  return "No HELLO detected.";
+}
+
+for (const greeting of greetings) {
+  console.log(helloChecker(greeting));
+}
 
 /******************************************************************************
 5.
@@ -206,5 +302,27 @@ should return "whao is ohe ptino tf ohis?"
 ******************************************************************************/
 
 function doubleSwap(string, charA, charB) {
-	//your code here
+  //your code here
+
+  //declares a string to return
+  let returnString = "";
+  //goes through each character in the string
+  for (const char of string) {
+    switch (char) {
+      //if the character matches charA, charB is added to the returnstring
+      case charA:
+        returnString += charB;
+        break;
+      //if the character matches charB, charA is added to the returnstring
+      case charB:
+        returnString += charA;
+        break;
+      //if neither characters match it adds the current character to the returnstring
+      default:
+        returnString += char;
+        break;
+    }
+  }
+  //returns the new string with the swapped characters
+  return returnString;
 }
